@@ -4,6 +4,8 @@ import { portfolioItems, categoryLabels } from '@/lib/portfolio';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-static';
+
 export async function generateStaticParams() {
   return portfolioItems.map((photo) => ({
     slug: photo.slug,
