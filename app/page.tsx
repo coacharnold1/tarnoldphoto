@@ -41,23 +41,24 @@ export default function Home() {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-fixed sm:bg-scroll"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${backgroundPhoto.image}')`,
+          backgroundAttachment: 'fixed',
         }}
       >
-        <div className="text-center z-10 px-6">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-2xl">
+        <div className="text-center z-10 px-4 sm:px-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-white drop-shadow-2xl">
             T.Arnold
             <br />
             Photography
           </h1>
-          <p className="text-xl md:text-2xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white drop-shadow-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
             Fine photography across concert halls, landscapes, studios, and life itself
           </p>
           <Link 
             href="#portfolio"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-teal-light to-emerald-light text-white font-bold rounded-lg hover:shadow-lg hover:shadow-teal-light/50 transition-all transform hover:scale-105"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-teal-light to-emerald-light text-white font-bold rounded-lg hover:shadow-lg hover:shadow-teal-light/50 transition-all transform hover:scale-105 text-sm sm:text-base"
           >
             Explore Portfolio
           </Link>
