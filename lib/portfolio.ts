@@ -29,7 +29,7 @@ export const portfolioItems: PhotoItem[] = [
     description: 'Cigar Party ',
     date: '2025-11-12',
     category: 'professional',
-    featured: true,
+    featured: false,
   },
   {
     id: '002',
@@ -69,7 +69,7 @@ export const portfolioItems: PhotoItem[] = [
     description: 'move!',
     date: '2025-11-12',
     category: 'professional',
-    featured: true,
+    featured: false,
   },
   {
     id: '006',
@@ -129,7 +129,7 @@ export const portfolioItems: PhotoItem[] = [
     description: 'touchdown',
     date: '2025-11-12',
     category: 'professional',
-    featured: false,
+    featured: true,
   },
   {
     id: '012',
@@ -319,7 +319,7 @@ export const portfolioItems: PhotoItem[] = [
     description: 'Grants Tomb',
     date: '2025-11-12',
     category: 'concert',
-    featured: false,
+    featured: true,
   },
   {
     id: '031',
