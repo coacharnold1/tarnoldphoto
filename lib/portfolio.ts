@@ -488,7 +488,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/DSC00028.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'family',
     featured: false,
   },
   {
@@ -498,7 +498,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/DSC00059.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'family',
     featured: false,
   },
   {
@@ -508,7 +508,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/DSC00074~2.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'art',
     featured: false,
   },
   {
@@ -518,7 +518,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3370.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'art',
     featured: false,
   },
   {
@@ -528,7 +528,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3487.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -538,7 +538,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3493.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -548,7 +548,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3494.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -558,7 +558,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3589.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -568,7 +568,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/IMG_3610.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -578,7 +578,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/_MG_4046_v1.JPG',
     description: 'Photo',
     date: '2025-11-12',
-    category: 'other',
+    category: 'concert',
     featured: false,
   },
   {
@@ -588,7 +588,7 @@ export const portfolioItems: PhotoItem[] = [
     image: '/portfolio/Mr_Tough_guy.JPG',
     description: 'Finny',
     date: '2025-11-12',
-    category: 'other',
+    category: 'family',
     featured: false,
   },
 ];
