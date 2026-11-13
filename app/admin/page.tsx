@@ -30,6 +30,7 @@ export default function AdminPage() {
   const [selectedFeatured, setSelectedFeatured] = useState<string[]>(
     portfolioItems.filter((p) => p.featured).map((p) => p.id)
   );
+  const [deletedPhotos, setDeletedPhotos] = useState<string[]>([]);
 
   const updateCategory = (id: string, category: PhotoCategory) => {
     setPhotos((prev) =>
@@ -47,6 +48,13 @@ export default function AdminPage() {
     setPhotos((prev) =>
       prev.map((p) => (p.id === id ? { ...p, description } : p))
     );
+  };
+
+  const deletePhoto = (id: string) => {
+    setPhotos((prev) => prev.filter((p) => p.id !== id));
+    setDeletedPhotos((prev) => [...prev, id]);
+    // Also remove from featured if it was selected
+    setSelectedFeatured((prev) => prev.filter((pid) => pid !== id));
   };
 
   const toggleFeatured = (id: string) => {
@@ -138,7 +146,7 @@ export function getFeaturedPhotos(): PhotoItem[] {
         <div className="max-w-7xl mx-auto px-6 py-6">
           <h1 className="text-3xl font-bold text-teal-light mb-4">Photo Organizer</h1>
           <p className="text-charcoal-light mb-4">
-            Edit titles, descriptions, categories, and mark featured photos. {selectedFeatured.length} / 5 featured.
+            Edit titles, descriptions, categories, and mark featured photos. {selectedFeatured.length} / 5 featured. {photos.length} photos total.
           </p>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -156,6 +164,33 @@ export function getFeaturedPhotos(): PhotoItem[] {
           </div>
         </div>
       </div>
+
+      {/* Warning Box */}
+      {deletedPhotos.length > 0 && (
+        <div className="bg-orange-100 border-l-4 border-orange-500 p-6 max-w-7xl mx-auto m-6">
+          <h3 className="text-lg font-bold text-orange-800 mb-2">📝 Important: Deletion Workflow</h3>
+          <p className="text-orange-900 mb-3">
+            You've marked <strong>{deletedPhotos.length}</strong> photo(s) for deletion. To complete the removal:
+          </p>
+          <ol className="list-decimal list-inside text-orange-900 space-y-2 mb-4">
+            <li><strong>Copy or Download</strong> the updated code below</li>
+            <li><strong>Replace</strong> the contents of <code className="bg-orange-50 px-2 py-1 rounded">lib/portfolio.ts</code></li>
+            <li><strong>Delete the image files</strong> from <code className="bg-orange-50 px-2 py-1 rounded">public/portfolio/</code>:
+              <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                {deletedPhotos.map((id) => {
+                  const photo = portfolioItems.find((p) => p.id === id);
+                  return (
+                    <li key={id} className="font-mono text-sm">
+                      {photo?.image}
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+            <li><strong>Commit and push</strong> to GitHub (Vercel auto-deploys)</li>
+          </ol>
+        </div>
+      )}
 
       {/* Category Summary */}
       <div className="max-w-7xl mx-auto px-6 py-8">
@@ -232,23 +267,39 @@ export function getFeaturedPhotos(): PhotoItem[] {
                   </div>
 
                   {/* Featured Toggle */}
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={selectedFeatured.includes(photo.id)}
-                      onChange={() => toggleFeatured(photo.id)}
-                      disabled={selectedFeatured.length >= 5 && !selectedFeatured.includes(photo.id)}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-xs font-semibold">
-                      Featured {selectedFeatured.includes(photo.id) && '✓'}
-                    </span>
-                  </label>
+                  <div className="mb-3">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedFeatured.includes(photo.id)}
+                        onChange={() => toggleFeatured(photo.id)}
+                        disabled={selectedFeatured.length >= 5 && !selectedFeatured.includes(photo.id)}
+                        className="w-4 h-4"
+                      />
+                      <span className="text-xs font-semibold">
+                        Featured {selectedFeatured.includes(photo.id) && '✓'}
+                      </span>
+                    </label>
+                  </div>
+
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => deletePhoto(photo.id)}
+                    className="w-full px-3 py-2 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600 transition"
+                  >
+                    🗑️ Delete
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {photos.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-charcoal-light text-lg">All photos deleted. Copy the code below to update your portfolio!</p>
+          </div>
+        )}
 
         {/* Code Preview */}
         <div className="mt-12 bg-white rounded-lg shadow-lg p-6">
