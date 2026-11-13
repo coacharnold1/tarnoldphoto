@@ -34,6 +34,9 @@ export default function AdminPage() {
     portfolioItems.filter((p) => p.featured).map((p) => p.id)
   );
   const [deletedPhotos, setDeletedPhotos] = useState<string[]>([]);
+  const [newPhotos, setNewPhotos] = useState<PhotoWithCategory[]>([]);
+  const [isScanning, setIsScanning] = useState(false);
+  const [showNewPhotos, setShowNewPhotos] = useState(false);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +60,36 @@ export default function AdminPage() {
       alert('❌ Error verifying password');
       console.error(error);
     }
+  };
+
+  const handleScanNewPhotos = async () => {
+    setIsScanning(true);
+    try {
+      const response = await fetch('/api/admin/scan-photos', {
+        method: 'POST',
+      });
+      
+      const data = await response.json();
+      
+      if (data.success && data.newPhotos.length > 0) {
+        setNewPhotos(data.newPhotos);
+        setShowNewPhotos(true);
+      } else {
+        alert('✓ No new photos found!');
+      }
+    } catch (error) {
+      alert('❌ Error scanning for new photos');
+      console.error(error);
+    } finally {
+      setIsScanning(false);
+    }
+  };
+
+  const handleAddNewPhotos = () => {
+    setPhotos((prev) => [...prev, ...newPhotos]);
+    setNewPhotos([]);
+    setShowNewPhotos(false);
+    alert(`✓ Added ${newPhotos.length} new photos!`);
   };
 
   const updateCategory = (id: string, category: PhotoCategory) => {
@@ -237,6 +270,13 @@ export function getFeaturedPhotos(): PhotoItem[] {
           </p>
           <div className="flex gap-2 flex-wrap">
             <button
+              onClick={handleScanNewPhotos}
+              disabled={isScanning}
+              className="px-4 py-2 bg-orange text-white rounded-lg hover:shadow-lg transition disabled:opacity-50"
+            >
+              {isScanning ? '🔍 Scanning...' : '🔍 Scan for New Photos'}
+            </button>
+            <button
               onClick={handleCopyCode}
               className="px-4 py-2 bg-teal-light text-white rounded-lg hover:shadow-lg transition"
             >
@@ -289,6 +329,40 @@ export function getFeaturedPhotos(): PhotoItem[] {
             </div>
           ))}
         </div>
+
+        {/* New Photos Found Section */}
+        {showNewPhotos && newPhotos.length > 0 && (
+          <div className="bg-orange-bg border-2 border-orange rounded-lg p-6 mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-orange mb-2">🆕 {newPhotos.length} New Photos Found!</h2>
+                <p className="text-charcoal-light">Click "Add All" to add them to your portfolio</p>
+              </div>
+              <button
+                onClick={handleAddNewPhotos}
+                className="px-6 py-3 bg-orange text-white rounded-lg hover:shadow-lg transition font-medium"
+              >
+                ✓ Add All
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {newPhotos.map((photo) => (
+                <div key={photo.id} className="aspect-square relative rounded overflow-hidden shadow border-2 border-orange/30">
+                  <Image
+                    src={photo.image}
+                    alt={photo.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-end p-2">
+                    <span className="text-white text-xs font-medium truncate">{photo.slug}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Photo Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
