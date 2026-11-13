@@ -71,22 +71,24 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featured.map((photo) => (
-              <div key={photo.id} className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
-                <div className="aspect-square bg-gradient-to-br from-teal-light to-emerald-light overflow-hidden">
-                  <div className="w-full h-full flex items-center justify-center text-white text-center p-6 group-hover:scale-110 transition-transform duration-300">
-                    <div>
-                      <p className="text-sm opacity-75">{photo.category}</p>
-                      <p className="text-xl font-bold">{photo.title}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                  <div className="text-white">
+              <Link
+                key={photo.id}
+                href={`/photo/${photo.slug}`}
+                className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-square"
+              >
+                <Image
+                  src={photo.image}
+                  alt={photo.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-end p-4">
+                  <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="font-bold">{photo.title}</p>
                     <p className="text-sm text-gray-200">{photo.description}</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
