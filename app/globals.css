@@ -3,6 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-teal: #0f766e;
+  --color-teal-light: #14b8a6;
+  --color-teal-bg: #f0fdfa;
+  --color-emerald: #059669;
+  --color-emerald-light: #10b981;
+  --color-emerald-bg: #f0fdf4;
+  --color-orange: #ea580c;
+  --color-orange-light: #fb923c;
+  --color-orange-bg: #fff7ed;
+  --color-charcoal: #1f2937;
+  --color-charcoal-light: #374151;
+  --color-charcoal-bg: #f9fafb;
 }
 
 @media (prefers-color-scheme: dark) {
