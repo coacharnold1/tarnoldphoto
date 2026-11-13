@@ -40,20 +40,12 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src={backgroundPhoto.image}
-            alt="Background"
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        
+      <section 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${backgroundPhoto.image}')`,
+        }}
+      >
         <div className="text-center z-10 px-6">
           <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-2xl">
             T.Arnold
