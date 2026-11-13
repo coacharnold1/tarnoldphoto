@@ -2,11 +2,29 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { portfolioItems, categoryLabels } from '@/lib/portfolio';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 export async function generateStaticParams() {
   return portfolioItems.map((photo) => ({
     slug: photo.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const photo = portfolioItems.find((p) => p.slug === params.slug);
+
+  if (!photo) {
+    return {};
+  }
+
+  return {
+    title: photo.title,
+    description: photo.description,
+  };
 }
 
 export default function PhotoPage({ params }: { params: { slug: string } }) {
