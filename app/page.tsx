@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { categoryLabels, type PhotoCategory, getFeaturedPhotos, portfolioItems } from '@/lib/portfolio';
 
@@ -134,14 +135,14 @@ export default function Home() {
                   href={`/photo/${photo.slug}`}
                   className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 aspect-square"
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-teal-light via-emerald-light to-orange-light flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <div className="text-center text-white z-10">
-                      <p className="text-sm opacity-75 font-semibold">{categoryLabels[photo.category]}</p>
-                      <p className="text-2xl font-bold mt-2">{photo.title}</p>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="text-center text-white">
+                  <Image 
+                    src={photo.image}
+                    alt={photo.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <div className="text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-sm">{photo.date}</p>
                       <p className="text-lg font-bold mt-2">{photo.description}</p>
                     </div>
