@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { portfolioItems, type PhotoCategory } from '@/lib/portfolio';
 
 type PhotoWithCategory = {
@@ -26,11 +27,24 @@ const categoryLabels: Record<PhotoCategory, string> = {
 };
 
 export default function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
   const [photos, setPhotos] = useState<PhotoWithCategory[]>(portfolioItems);
   const [selectedFeatured, setSelectedFeatured] = useState<string[]>(
     portfolioItems.filter((p) => p.featured).map((p) => p.id)
   );
   const [deletedPhotos, setDeletedPhotos] = useState<string[]>([]);
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordInput('');
+    } else {
+      alert('❌ Incorrect password');
+      setPasswordInput('');
+    }
+  };
 
   const updateCategory = (id: string, category: PhotoCategory) => {
     setPhotos((prev) =>
@@ -139,12 +153,72 @@ export function getFeaturedPhotos(): PhotoItem[] {
     );
   }, [photos]);
 
+  // Password gate
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-charcoal to-charcoal-light flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-lg shadow-2xl p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold mb-2">
+                <span className="text-teal-light">T</span>
+                <span className="text-emerald-light">A</span>
+                <span className="text-orange">Photo</span>
+              </h1>
+              <p className="text-charcoal-light text-sm">Admin Panel</p>
+            </div>
+            
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-charcoal mb-2">
+                  Enter Password
+                </label>
+                <input
+                  type="password"
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full px-4 py-2 border border-charcoal-light/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-light"
+                  autoFocus
+                />
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full bg-teal-light text-white py-2 rounded-lg hover:bg-teal transition font-medium"
+              >
+                Access Admin Panel
+              </button>
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-charcoal-light/10">
+              <Link 
+                href="/" 
+                className="text-sm text-teal-light hover:text-emerald-light transition flex items-center justify-center gap-2"
+              >
+                ← Back to Portfolio
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-charcoal-bg">
       {/* Header */}
       <div className="bg-white shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-6">
-          <h1 className="text-3xl font-bold text-teal-light mb-4">Photo Organizer</h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-3xl font-bold text-teal-light">Photo Organizer</h1>
+            <button
+              onClick={() => setIsAuthenticated(false)}
+              className="px-3 py-1 text-sm text-charcoal-light hover:text-orange transition"
+            >
+              🚪 Logout
+            </button>
+          </div>
           <p className="text-charcoal-light mb-4">
             Edit titles, descriptions, categories, and mark featured photos. {selectedFeatured.length} / 5 featured. {photos.length} photos total.
           </p>

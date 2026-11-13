@@ -31,10 +31,13 @@ export default function Home() {
             <span className="text-emerald-light">A</span>
             <span className="text-orange">Photo</span>
           </Link>
-          <div className="flex gap-8">
+          <div className="flex gap-8 items-center">
             <Link href="#portfolio" className="hover:text-teal-light transition">Portfolio</Link>
             <Link href="#about" className="hover:text-teal-light transition">About</Link>
             <Link href="#contact" className="hover:text-teal-light transition">Contact</Link>
+            <Link href="/admin" className="text-xs px-3 py-1.5 bg-orange text-white rounded hover:bg-orange-light transition font-medium">
+              Admin
+            </Link>
           </div>
         </div>
       </nav>
