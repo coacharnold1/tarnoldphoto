@@ -152,7 +152,7 @@ export default async function PhotoPage({
       {/* Footer */}
       <footer className="bg-charcoal-bg border-t border-charcoal/10 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-charcoal-light/70">
-          <p>&copy; 2025 tarnoldphoto. All rights reserved.</p>
+          <p>&copy; 2025 Timothy Arnold Photography. All rights reserved.</p>
         </div>
       </footer>
     </div>

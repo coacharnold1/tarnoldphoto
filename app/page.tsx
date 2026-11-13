@@ -195,7 +195,7 @@ export default function Home() {
             Interested in prints, collaborations, or just want to chat about photography?
           </p>
           <a 
-            href="mailto:contact@tarnoldphoto.com"
+            href="mailto:coacharnold@gmail.com"
             className="inline-block px-8 py-4 bg-orange text-white font-bold rounded-lg hover:shadow-lg hover:shadow-orange/50 transition-all transform hover:scale-105"
           >
             Get In Touch
@@ -206,7 +206,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-charcoal text-white py-8">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-charcoal-light">© 2026 tarnoldphoto. All rights reserved.</p>
+          <p className="text-charcoal-light">© 2026 Timothy Arnold Photography. All rights reserved.</p>
         </div>
       </footer>
     </main>
