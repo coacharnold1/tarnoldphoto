@@ -484,7 +484,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '047',
     slug: 'dsc-00028',
-    title: 'DSC 00028',
+    title: 'Thomas the Cat ',
     image: '/portfolio/DSC00028.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -494,7 +494,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '048',
     slug: 'dsc-00059',
-    title: 'DSC 00059',
+    title: 'Finn ',
     image: '/portfolio/DSC00059.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -504,7 +504,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '049',
     slug: 'dsc-00074',
-    title: 'DSC 00074',
+    title: 'Bee',
     image: '/portfolio/DSC00074~2.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -514,7 +514,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '050',
     slug: 'img-3370',
-    title: 'IMG 3370',
+    title: 'Let\'s Have it Already',
     image: '/portfolio/IMG_3370.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -524,7 +524,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '051',
     slug: 'img-3487',
-    title: 'IMG 3487',
+    title: 'Swing',
     image: '/portfolio/IMG_3487.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -534,7 +534,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '052',
     slug: 'img-3493',
-    title: 'IMG 3493',
+    title: 'Dencers in the Park 1',
     image: '/portfolio/IMG_3493.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -544,7 +544,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '053',
     slug: 'img-3494',
-    title: 'IMG 3494',
+    title: 'Dencers in the Park 2',
     image: '/portfolio/IMG_3494.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -554,7 +554,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '054',
     slug: 'img-3589',
-    title: 'IMG 3589',
+    title: 'Dance Again',
     image: '/portfolio/IMG_3589.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -564,7 +564,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '055',
     slug: 'img-3610',
-    title: 'IMG 3610',
+    title: 'Bright Light  ',
     image: '/portfolio/IMG_3610.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -574,7 +574,7 @@ export const portfolioItems: PhotoItem[] = [
   {
     id: '056',
     slug: 'mg-4046-v1',
-    title: 'MG 4046 V1',
+    title: 'Big Chief',
     image: '/portfolio/_MG_4046_v1.JPG',
     description: 'Photo',
     date: '2025-11-12',
@@ -586,7 +586,7 @@ export const portfolioItems: PhotoItem[] = [
     slug: 'mr-tough-guy',
     title: 'Mr Tough Guy',
     image: '/portfolio/Mr_Tough_guy.JPG',
-    description: 'Photo',
+    description: 'Finny',
     date: '2025-11-12',
     category: 'other',
     featured: false,
