@@ -64,12 +64,12 @@ export default async function PhotoPage({
       {/* Photo Detail */}
       <section className="py-12">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="relative aspect-video mb-8 rounded-xl overflow-hidden shadow-2xl">
+          <div className="relative max-w-full h-auto mb-8 rounded-xl overflow-hidden shadow-2xl" style={{ aspectRatio: '16 / 9' }}>
             <Image
               src={photo.image}
               alt={photo.title}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
               priority
             />
