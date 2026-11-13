@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { categoryLabels, type PhotoCategory, getFeaturedPhotos, portfolioItems } from '@/lib/portfolio';
 
 const categories: PhotoCategory[] = ['concert', 'landscape', 'art', 'professional', 'family', 'other'];
@@ -10,6 +10,12 @@ const categories: PhotoCategory[] = ['concert', 'landscape', 'art', 'professiona
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<PhotoCategory | 'all'>('all');
   const featured = getFeaturedPhotos();
+  
+  // Get a random landscape photo for the hero background
+  const backgroundPhoto = useMemo(() => {
+    const landscapes = portfolioItems.filter(item => item.category === 'landscape');
+    return landscapes[Math.floor(Math.random() * landscapes.length)] || portfolioItems[0];
+  }, []);
   
   const filtered = selectedCategory === 'all' 
     ? portfolioItems 
@@ -35,22 +41,27 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-teal-light opacity-20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-72 h-72 bg-emerald-light opacity-20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-orange-light opacity-20 rounded-full blur-3xl animate-pulse" />
+          <Image
+            src={backgroundPhoto.image}
+            alt="Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         
         <div className="text-center z-10 px-6">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-teal-light">Moments</span>
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-2xl">
+            T.Arnold
             <br />
-            <span className="text-emerald-light">That</span>
-            <br />
-            <span className="text-orange">Matter</span>
+            Photography
           </h1>
-          <p className="text-xl md:text-2xl text-charcoal-light mb-8 max-w-2xl mx-auto">
-            Photography across concert halls, landscapes, studios, and life itself
+          <p className="text-xl md:text-2xl text-white drop-shadow-lg mb-8 max-w-2xl mx-auto">
+            Fine photography across concert halls, landscapes, studios, and life itself
           </p>
           <Link 
             href="#portfolio"
