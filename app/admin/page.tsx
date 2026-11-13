@@ -35,14 +35,27 @@ export default function AdminPage() {
   );
   const [deletedPhotos, setDeletedPhotos] = useState<string[]>([]);
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setPasswordInput('');
-    } else {
-      alert('❌ Incorrect password');
-      setPasswordInput('');
+    try {
+      const response = await fetch('/api/auth/verify-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.valid) {
+        setIsAuthenticated(true);
+        setPasswordInput('');
+      } else {
+        alert('❌ Incorrect password');
+        setPasswordInput('');
+      }
+    } catch (error) {
+      alert('❌ Error verifying password');
+      console.error(error);
     }
   };
 
