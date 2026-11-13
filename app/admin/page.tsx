@@ -37,6 +37,8 @@ export default function AdminPage() {
   const [newPhotos, setNewPhotos] = useState<PhotoWithCategory[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [showNewPhotos, setShowNewPhotos] = useState(false);
+  const [missingPhotos, setMissingPhotos] = useState<any[]>([]);
+  const [showMissingPhotos, setShowMissingPhotos] = useState(false);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,20 +67,29 @@ export default function AdminPage() {
   const handleScanNewPhotos = async () => {
     setIsScanning(true);
     try {
-      const response = await fetch('/api/admin/scan-photos', {
+      const response = await fetch('/api/admin/sync-portfolio', {
         method: 'POST',
       });
       
       const data = await response.json();
       
-      if (data.success && data.newPhotos.length > 0) {
-        setNewPhotos(data.newPhotos);
+      // Show missing photos if any
+      if (data.missingCount > 0) {
+        setMissingPhotos(data.missing);
+        setShowMissingPhotos(true);
+      }
+      
+      // Show new photos if any
+      if (data.newCount > 0) {
+        setNewPhotos(data.new);
         setShowNewPhotos(true);
-      } else {
-        alert('✓ No new photos found!');
+      }
+      
+      if (data.newCount === 0 && data.missingCount === 0) {
+        alert('✓ Portfolio is in sync! No changes needed.');
       }
     } catch (error) {
-      alert('❌ Error scanning for new photos');
+      alert('❌ Error syncing portfolio');
       console.error(error);
     } finally {
       setIsScanning(false);
@@ -90,6 +101,14 @@ export default function AdminPage() {
     setNewPhotos([]);
     setShowNewPhotos(false);
     alert(`✓ Added ${newPhotos.length} new photos!`);
+  };
+
+  const handleRemoveMissingPhotos = () => {
+    const missingIds = new Set(missingPhotos.map((p) => p.id));
+    setPhotos((prev) => prev.filter((p) => !missingIds.has(p.id)));
+    setMissingPhotos([]);
+    setShowMissingPhotos(false);
+    alert(`✓ Removed ${missingPhotos.length} photos with missing files!`);
   };
 
   const updateCategory = (id: string, category: PhotoCategory) => {
@@ -274,7 +293,7 @@ export function getFeaturedPhotos(): PhotoItem[] {
               disabled={isScanning}
               className="px-4 py-2 bg-orange text-white rounded-lg hover:shadow-lg transition disabled:opacity-50"
             >
-              {isScanning ? '🔍 Scanning...' : '🔍 Scan for New Photos'}
+              {isScanning ? '🔄 Syncing...' : '🔄 Sync & Clean Portfolio'}
             </button>
             <button
               onClick={handleCopyCode}
@@ -329,6 +348,34 @@ export function getFeaturedPhotos(): PhotoItem[] {
             </div>
           ))}
         </div>
+
+        {/* Missing Photos Section */}
+        {showMissingPhotos && missingPhotos.length > 0 && (
+          <div className="bg-orange-bg border-2 border-orange rounded-lg p-6 mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-orange mb-2">🗑️ {missingPhotos.length} Photos Missing Files!</h2>
+                <p className="text-charcoal-light">These entries point to deleted or moved files. Remove them from portfolio.ts?</p>
+              </div>
+              <button
+                onClick={handleRemoveMissingPhotos}
+                className="px-6 py-3 bg-orange text-white rounded-lg hover:shadow-lg transition font-medium"
+              >
+                ✓ Remove All
+              </button>
+            </div>
+            
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {missingPhotos.map((photo) => (
+                <div key={photo.id} className="bg-white p-3 rounded border-l-4 border-orange">
+                  <p className="font-semibold text-charcoal">{photo.title || 'Untitled'}</p>
+                  <p className="text-xs text-charcoal-light">{photo.image}</p>
+                  <p className="text-xs text-orange">Category: {photo.category}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* New Photos Found Section */}
         {showNewPhotos && newPhotos.length > 0 && (
