@@ -37,6 +37,18 @@ export default function AdminPage() {
     );
   };
 
+  const updateTitle = (id: string, title: string) => {
+    setPhotos((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, title } : p))
+    );
+  };
+
+  const updateDescription = (id: string, description: string) => {
+    setPhotos((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, description } : p))
+    );
+  };
+
   const toggleFeatured = (id: string) => {
     setSelectedFeatured((prev) =>
       prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]
@@ -44,7 +56,7 @@ export default function AdminPage() {
   };
 
   const generateCode = () => {
-    const code = `import { Photo, PhotoCategory } from '@/types';
+    const code = `export type PhotoCategory = 'concert' | 'landscape' | 'art' | 'professional' | 'family' | 'other';
 
 export type PhotoItem = {
   id: string;
@@ -56,8 +68,6 @@ export type PhotoItem = {
   category: PhotoCategory;
   featured: boolean;
 };
-
-export type PhotoCategory = 'concert' | 'landscape' | 'art' | 'professional' | 'family' | 'other';
 
 export const categoryLabels: Record<PhotoCategory, string> = {
   concert: 'Concert',
@@ -128,7 +138,7 @@ export function getFeaturedPhotos(): PhotoItem[] {
         <div className="max-w-7xl mx-auto px-6 py-6">
           <h1 className="text-3xl font-bold text-teal-light mb-4">Photo Organizer</h1>
           <p className="text-charcoal-light mb-4">
-            Assign photos to categories and mark featured photos. {selectedFeatured.length} / 5 featured.
+            Edit titles, descriptions, categories, and mark featured photos. {selectedFeatured.length} / 5 featured.
           </p>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -159,55 +169,82 @@ export function getFeaturedPhotos(): PhotoItem[] {
         </div>
 
         {/* Photo Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {photos.map((photo) => (
             <div key={photo.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              {/* Image */}
-              <div className="relative aspect-square">
-                <Image
-                  src={photo.image}
-                  alt={photo.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Info */}
-              <div className="p-4">
-                <h3 className="font-bold text-lg mb-2 truncate">{photo.title}</h3>
-                <p className="text-sm text-charcoal-light mb-4 line-clamp-2">{photo.description}</p>
-
-                {/* Category Select */}
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold text-charcoal-light mb-2">
-                    Category
-                  </label>
-                  <select
-                    value={photo.category}
-                    onChange={(e) => updateCategory(photo.id, e.target.value as PhotoCategory)}
-                    className="w-full px-3 py-2 border border-charcoal/20 rounded-lg bg-white text-charcoal focus:outline-none focus:ring-2 focus:ring-teal-light"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {categoryLabels[cat]}
-                      </option>
-                    ))}
-                  </select>
+              <div className="grid grid-cols-2 gap-0">
+                {/* Image */}
+                <div className="relative aspect-square">
+                  <Image
+                    src={photo.image}
+                    alt={photo.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
-                {/* Featured Toggle */}
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={selectedFeatured.includes(photo.id)}
-                    onChange={() => toggleFeatured(photo.id)}
-                    disabled={selectedFeatured.length >= 5 && !selectedFeatured.includes(photo.id)}
-                    className="w-4 h-4"
-                  />
-                  <span className="text-sm font-semibold">
-                    Featured {selectedFeatured.includes(photo.id) && '✓'}
-                  </span>
-                </label>
+                {/* Info */}
+                <div className="p-4 flex flex-col justify-between">
+                  {/* Title Input */}
+                  <div className="mb-4">
+                    <label className="block text-xs font-semibold text-charcoal-light mb-1">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      value={photo.title}
+                      onChange={(e) => updateTitle(photo.id, e.target.value)}
+                      className="w-full px-2 py-1 border border-charcoal/20 rounded text-sm bg-white text-charcoal focus:outline-none focus:ring-2 focus:ring-teal-light"
+                      placeholder="Photo title"
+                    />
+                  </div>
+
+                  {/* Description Input */}
+                  <div className="mb-4">
+                    <label className="block text-xs font-semibold text-charcoal-light mb-1">
+                      Description
+                    </label>
+                    <textarea
+                      value={photo.description}
+                      onChange={(e) => updateDescription(photo.id, e.target.value)}
+                      className="w-full px-2 py-1 border border-charcoal/20 rounded text-xs bg-white text-charcoal focus:outline-none focus:ring-2 focus:ring-teal-light resize-none"
+                      placeholder="Photo description"
+                      rows={3}
+                    />
+                  </div>
+
+                  {/* Category Select */}
+                  <div className="mb-3">
+                    <label className="block text-xs font-semibold text-charcoal-light mb-1">
+                      Category
+                    </label>
+                    <select
+                      value={photo.category}
+                      onChange={(e) => updateCategory(photo.id, e.target.value as PhotoCategory)}
+                      className="w-full px-2 py-1 border border-charcoal/20 rounded text-xs bg-white text-charcoal focus:outline-none focus:ring-2 focus:ring-teal-light"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {categoryLabels[cat]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Featured Toggle */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedFeatured.includes(photo.id)}
+                      onChange={() => toggleFeatured(photo.id)}
+                      disabled={selectedFeatured.length >= 5 && !selectedFeatured.includes(photo.id)}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs font-semibold">
+                      Featured {selectedFeatured.includes(photo.id) && '✓'}
+                    </span>
+                  </label>
+                </div>
               </div>
             </div>
           ))}
