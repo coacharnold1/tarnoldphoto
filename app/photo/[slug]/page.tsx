@@ -1,9 +1,13 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { portfolioItems, categoryLabels } from '@/lib/portfolio';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams() {
+  return portfolioItems.map((photo) => ({
+    slug: photo.slug,
+  }));
+}
 
 export default function PhotoPage({ params }: { params: { slug: string } }) {
   const photo = portfolioItems.find((p) => p.slug === params.slug);
