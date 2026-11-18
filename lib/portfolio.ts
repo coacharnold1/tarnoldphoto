@@ -192,16 +192,6 @@ export const portfolioItems: PhotoItem[] = [
     featured: false,
   },
   {
-    id: '020',
-    slug: 'img-1702',
-    title: 'Green Globes',
-    image: '/portfolio/art/IMG_1702.jpg',
-    description: 'More green space',
-    date: '2025-11-12',
-    category: 'art',
-    featured: false,
-  },
-  {
     id: '023',
     slug: 'img-2108',
     title: 'Ocean Sky',
