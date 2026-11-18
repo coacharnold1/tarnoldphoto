@@ -681,6 +681,16 @@ export const portfolioItems: PhotoItem[] = [
     category: 'family',
     featured: false,
   },
+  {
+    id: '79',
+    slug: 'img-20230831-170046805',
+    title: 'Untitled',
+    image: '/portfolio/art/IMG_20230831_170046805.jpg',
+    description: '',
+    date: '2026-11-18',
+    category: 'art',
+    featured: false,
+  },
 ];
 
 export function getPhotosByCategory(category: PhotoCategory): PhotoItem[] {
