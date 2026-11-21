@@ -312,16 +312,6 @@ export const portfolioItems: PhotoItem[] = [
     featured: false,
   },
   {
-    id: '043',
-    slug: 'img-7014',
-    title: 'Before Sunrise',
-    image: '/portfolio/landscape/IMG_7014.jpg',
-    description: 'Kouchibouguac National Park',
-    date: '2025-11-12',
-    category: 'landscape',
-    featured: false,
-  },
-  {
     id: '044',
     slug: 'img-7020',
     title: 'Sunrise at the Beach',
