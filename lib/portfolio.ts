@@ -576,7 +576,7 @@ export const portfolioItems: PhotoItem[] = [
     slug: 'img-20230831-170046805',
     title: 'Fatima',
     image: '/portfolio/art/IMG_20230831_170046805.jpg',
-    description: '',
+    description: 'Fatima',
     date: '2026-11-18',
     category: 'art',
     featured: false,
