@@ -542,16 +542,6 @@ export const portfolioItems: PhotoItem[] = [
     featured: false,
   },
   {
-    id: '071',
-    slug: 'img-2685',
-    title: 'Island Sky',
-    image: '/portfolio/landscape/IMG_2685.JPG',
-    description: 'Azores',
-    date: '2026-11-14',
-    category: 'landscape',
-    featured: false,
-  },
-  {
     id: '072',
     slug: 'img-6251',
     title: 'Western Skies',
